@@ -35,6 +35,12 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "countdown"
             packageVersion = "1.0.0"
+
+            buildTypes.release.proguard {
+                isEnabled.set(false)
+                obfuscate.set(false)
+            }
+
         }
 
         jvmArgs(
