@@ -33,16 +33,27 @@ private fun Duration.components(): Pair<String, String> {
 fun Time(
     time: Duration,
     fontSize: TextUnit,
+    alignment: TimeAlignment = TimeAlignment.Center,
 ) {
-    val fontSizeInDp =  with(LocalDensity.current) {
+    val fontSizeInDp = with(LocalDensity.current) {
         fontSize.toDp()
     }
 
     val (minutes, seconds) = time.components()
 
     Row(
-        horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.width(fontSizeInDp * 5.5f),
+        horizontalArrangement = when (alignment) {
+            TimeAlignment.Center -> Arrangement.Center
+            TimeAlignment.Start -> Arrangement.Start
+        },
+        modifier = Modifier
+            .run {
+                if (alignment == TimeAlignment.Center) {
+                    this.width(fontSizeInDp * 7f)
+                } else {
+                    this
+                }
+            },
     ) {
         Text(
             text = minutes,
@@ -56,7 +67,14 @@ fun Time(
             textAlign = TextAlign.End,
             fontSize = fontSize,
             color = Color.White,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .run {
+                    if (alignment == TimeAlignment.Center) {
+                        this.weight(1f)
+                    } else {
+                        this
+                    }
+                },
         )
 
         Text(
@@ -85,8 +103,20 @@ fun Time(
             textAlign = TextAlign.Start,
             fontSize = fontSize,
             color = Color.White,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .run {
+                    if (alignment == TimeAlignment.Center) {
+                        this.weight(1f)
+                    } else {
+                        this
+                    }
+                },
         )
     }
 
+}
+
+enum class TimeAlignment {
+    Center,
+    Start
 }

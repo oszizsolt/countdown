@@ -95,10 +95,16 @@ fun CounterItem(
                 modifier = Modifier.padding(start = 8.dp)
             )
 
-            Time(
-                time = time,
-                fontSize = 24.sp,
-            )
+            Box(
+                Modifier.padding(start = 8.dp)
+            ) {
+                Time(
+                    time = time,
+                    fontSize = 24.sp,
+                    alignment = TimeAlignment.Start,
+                )
+            }
+
         }
 
 
